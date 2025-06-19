@@ -120,6 +120,119 @@ print(tup[:3])   # Output: (1, 2,3)
   list = [1, 2, 3]
   print(str[::-1])  # 'nohtyp'
   print(list[::-1])  # [3, 2, 1]
+```
+## 16. How would you optimize a recursive function to avoid maximum recursion depth errors in Python?
+- To avoid maximum recursion depth errors in Python , you can optimize your recursive function in several ways, depending on    the problem.
+### 1. Use Iteration Instead of Recursion:
+- Rewrite the recursive function as an iterative one using loops(like for or while).
+- Iteration avoids growing the call stack and is usually more memory-efficient.
+``` python
+# Recursive factorial (can hit recursion limit)
+def factorial_recursive(n):
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial_recursive(n - 1)
+n = 5
+print("Recursive Factorial of", n, "is", factorial_recursive(n))#OUTPUT: Recursive Factorial of 5 is 120
+ # Iterative factorial
+def factorial_iterative(n):
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+n = 5
+print("Iterative Factorial of", n, "is", factorial_iterative(n)) #OUTPUT: Iterative Factorial of 5 is 120
+
+```
+### 2.Increase Recursion Limit:
+- You can use sys.setrecursionlimit() to increase the recursion limit, but it's risky—going too high may cause a crash due      to stack overflow.
+### 3. Use Memoization (Caching):
+- For problems like Fibonacci where overlapping subproblems occur, memoization can reduce the number of recursive calls,       making the recursion shallow enough to avoid hitting the limit.
+### 4. Use a Stack to Simulate Recursion:
+- We can simulate recursion explicitly using a stack.
+- When iteration isn't straightforward, we can use a stack.
+
+## 17. What is the difference between *args and **kwargs in function definitions, and how do you handle both in a single           function?
+- *args and **kwargs are powerful tools in Python used to pass a variable number of arguments to a function.
+  ### *args:
+  - Stands for “arbitrary positional arguments”.
+  - Collects extra positional (non-keyworded) arguments.
+  - Stored as a tuple.
+``` python
+def example_args(*args):
+    for arg in args:
+        print(arg)
+example_args(1, 2, 3) #output: 1 ,2,3
+```
+### **kwargs:
+- Stands for “arbitrary keyword arguments”.
+- Collects extra keyword (named) arguments.
+- Stored as a dictionary.
+``` python
+def example_kwargs(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key} = {value}")
+
+example_kwargs(name="Alice", age=30) #output: name = Alice age = 30
+```
+### Using Both *args and **kwargs in a Single Function
+You can combine both in one function — just to keep the order:
+``` python
+def combined_example(arg1, *args, **kwargs):
+    print("arg1:", arg1)
+    print("args:", args)
+    print("kwargs:", kwargs)
+
+combined_example("first", 10, 20, key1="value1", key2="value2")
+#output:
+arg1: first
+args: (10, 20)
+kwargs: {'key1': 'value1', 'key2': 'value2'}
+```
+## 18.Explain how closures work in Python. Give a real-time example where closures are better than classes.
+- A closure is a function object that remembers values in enclosing scopes even if they are not in memory anymore.
+### For a function to be a closure, three conditions must be met:
+- A nested function (function inside another).
+- The nested function references variables from the outer function.
+- The outer function returns the nested function.
+``` python
+#Closure Version
+def make_counter():
+    count = 0
+    def counter():
+        nonlocal count
+        count += 1
+        return count
+    return counter
+c1 = make_counter()
+print(c1())  # 1
+print(c1())  # 2
+print(c1())  # 3
+```
+```python
+#Class Version
+class Counter:
+    def __init__(self):
+        self.count = 0
+    def __call__(self):
+        self.count += 1
+        return self.count
+c2 = Counter()
+print(c2())  # 1
+print(c2())  # 2
+```
+## 19. When would you use a lambda function over a regular function in a production codebase?
+
+
+
+
+
+
+
+
+
+
+  
 
 
 
