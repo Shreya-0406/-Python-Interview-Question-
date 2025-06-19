@@ -223,6 +223,13 @@ print(c2())  # 2
 ```
 ## 19. When would you use a lambda function over a regular function in a production codebase?
 
+## 20. How would you handle a situation where a loop inside a function is causing performance issues due to large data              processing?
+### 1. Profile First
+#### Before optimizing, identify the bottleneck:
+   - Use built-in tools
+   -  line-level profilers like line_profiler:
+     
+
 
 
 
